@@ -1,5 +1,5 @@
 import numpy as np
-from grid_world import windy_grid, ACTION_SPACE
+from environment.grid_world import windy_grid, ACTION_SPACE
 
 SMALL_ENOUGH = 1e-3
 

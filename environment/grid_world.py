@@ -2,12 +2,37 @@ import numpy as np
 
 ACTION_SPACE = ("L","R","U","D")
 
+def print_values(V,g):
+    for i in range(g.rows):
+        print("------------------------")
+        for j in range(g.cols):
+            v = V.get((i,j),0) # <-- set에서 데이터를 가져올 때, 없으면 0을 반환
+            if v >= 0:
+                print(f" {v:.2f} |", end="")
+            else:
+                print(f"{v:.2f} |", end="")
+        print("")
+
+def print_policy(P,g):
+    for i in range(g.rows):
+        print("------------------------")
+        for j in range(g.cols):
+            a = P.get((i,j), ' ')
+            print(f"  {a}  |", end="")
+        print("")
+
 class Grid:
     def __init__(self, rows, cols, start):
         self.rows = rows
         self.cols = cols
+        self.start = start
         self.i = start[0]
         self.j = start[1]
+
+    def reset(self):
+        self.i = self.start[0]
+        self.j = self.start[1]
+        return (self.i, self.j)
 
     def set(self, rewards, actions):
         '''
@@ -271,6 +296,32 @@ def standard_grid():
     g = Grid(3, 4, (2, 0))
     rewards = {(0, 3): 1,
                (1, 3): -1}
+    actions = {(0, 0): ("D", "R"),
+               (0, 1): ("L", "R"),
+               (0, 2): ("L", "R", "D"),
+               (1, 0): ("U", "D"),
+               (1, 2): ("U", "D", "R"),
+               (2, 0): ("U", "R"),
+               (2, 1): ("L", "R"),
+               (2, 2): ("L", "R", "U"),
+               (2, 3): ("L", "U"), }
+    g.set(rewards, actions)
+    return g
+
+def negative_grid(step_cost = -0.1):
+    g = Grid(3, 4, (2, 0))
+    rewards = {(0, 3): 1,
+               (1, 3): -1,
+               (0, 0): step_cost,
+               (0, 1): step_cost,
+               (0, 2): step_cost,
+               (1, 0): step_cost,
+               (1, 1): step_cost,
+               (1, 2): step_cost,
+               (2, 0): step_cost,
+               (2, 1): step_cost,
+               (2, 2): step_cost,
+               (2, 3): step_cost,}
     actions = {(0, 0): ("D", "R"),
                (0, 1): ("L", "R"),
                (0, 2): ("L", "R", "D"),

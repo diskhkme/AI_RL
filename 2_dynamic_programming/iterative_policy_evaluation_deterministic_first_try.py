@@ -1,4 +1,4 @@
-from grid_world import Grid, standard_grid
+from environment.grid_world import standard_grid
 
 # 1. Define helper functions to print value and policy
 def print_policy(policy, g):

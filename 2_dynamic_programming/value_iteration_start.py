@@ -1,5 +1,5 @@
 import numpy as np
-from grid_world import windy_grid, windy_grid_penalized, ACTION_SPACE
+from environment.grid_world import windy_grid, ACTION_SPACE
 from iterative_policy_evaluation_deterministic_start import print_values, print_policy
 
 SMALL_ENOUGH = 1e-3
